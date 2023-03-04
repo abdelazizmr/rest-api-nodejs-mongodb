@@ -1,10 +1,4 @@
-{
-  "currentUser": {
-    "image": "user-images/image-jesse.jpg",
-    "name": "Jesse Ronda",
-    "username": "jesse10930"
-  },
-  "productRequests": [
+[
     {
       "id": 1,
       "title": "Add tags for solutions",
@@ -355,12 +349,5 @@
       "description": "jkhb;jbljk",
       "id": 17
     }
-  ],
-  "catergories": [
-    "Enhancement",
-    "Ul",
-    "UX",
-    "Bug",
-    "Feature"
   ]
-}
+ 

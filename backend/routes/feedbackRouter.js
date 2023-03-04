@@ -1,8 +1,10 @@
 const express = require('express')
 
-const { getAllFeedbacks, addFeedback , updateFeedback , deleteFeedback } = require('../controllers/feedbackController')
+const { getAllFeedbacks,getOneFeedback , addFeedback , updateFeedback , deleteFeedback } = require('../controllers/feedbackController')
 
 const router  = express.Router()
+
+router.get('/:id',getOneFeedback)
 
 router.route('/').get(getAllFeedbacks).post(addFeedback)
 

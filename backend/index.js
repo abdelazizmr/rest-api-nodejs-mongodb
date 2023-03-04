@@ -2,7 +2,11 @@ const express = require('express')
 
 const app = express()
 
+const connectDB = require('./config/db')
+
 const PORT  = process.env.PORT || 5000
+
+connectDB()
 
 // Accepting body requests
 app.use(express.json())
