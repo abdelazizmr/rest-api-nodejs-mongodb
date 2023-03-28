@@ -1,4 +1,6 @@
 const asyncHandler = require('express-async-handler')
+
+// Feedback model
 const feedback = require('../models/feedbackModel')
 
 //@ desc   => Get All Feedbacks 
@@ -23,8 +25,6 @@ const getOneFeedback = asyncHandler(async (req,res) =>{
 
     res.json(f)
 })
-
-
 
 
 
@@ -86,12 +86,61 @@ const deleteFeedback = asyncHandler(async (req,res) =>{
     res.json({id : id})
 })
 
+// ================================ COMMENTS ================================
+
+
+//@ desc   => Get a list of comments for a given feedback id
+//@ method => GET api/feedbacks/:id/comments
+const getCommentsForFeedback = asyncHandler(async (req,res) =>{
+    const id = req.params.id
+    const f = await feedback.findById(id)
+    if (!f){
+        res.status(400)
+        throw new Error('Requested feedback id does not exist!')
+    }
+    //console.log(f.comments)
+    res.json(f.comments)
+})
+
+
+//@ desc   => Add a comment for a given feedback id
+//@ method => POST api/feedbacks/:id/
+
+const addCommentForFeedback = asyncHandler(async (req,res) =>{
+
+    const id = req.params.id
+    const f = await feedback.findById(id)
+    if (!f){
+        res.status(400)
+        throw new Error('Requested feedback id does not exist!')
+    }
+
+
+   const payload = req.body
+    const content = payload.content
+    if (!content){
+        res.status(400)
+        throw new Error('Content is required for a comment !') 
+    }
+
+    const createdComment = await feedback.comments.create({
+        content: payload.content,
+    })
+
+    res.json(createdComment)
+    
+})
+
 
 
 module.exports = {
     getAllFeedbacks,
+    getOneFeedback,
     addFeedback,
     updateFeedback,
     deleteFeedback,
-    getOneFeedback
+    // comments
+    getCommentsForFeedback,
+    addCommentForFeedback,
+
 }
